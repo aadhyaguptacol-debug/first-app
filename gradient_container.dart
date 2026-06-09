@@ -1,52 +1,32 @@
-
 import 'package:flutter/material.dart';
+
+import 'package:basics/dice_roller.dart';
 
 const startAlignment = Alignment.topLeft;
 const endAlignment = Alignment.bottomRight;
 
-class GradientContainer extends StatelessWidget {
-  // 1. Removed 'const' from here because activeDiceImage is a variable that changes
-  GradientContainer(this.color1, this.color2, {super.key});
+class GradientContainer extends StatefulWidget {
+  const GradientContainer(this.color1, this.color2, {super.key});
+
+  const GradientContainer.purple({super.key})
+        : color1 = Colors.deepPurple,
+          color2 = Colors.indigo;
 
   final Color color1;
-  final Color color2; 
-  var activeDiceImage = 'assets/images/dice-2.png';
-
-  void rollDice() {
-    activeDiceImage = 'assets/images/dice-4.png';
-  }
+  final Color color2;
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color1, color2],
+          colors: [widget.color1, widget.color2],
           begin: startAlignment,
           end: endAlignment,
         ),
       ),
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, 
-          children: [
-            Image.asset(
-              // 2. Removed the accidental single quote mark from the variable name
-              activeDiceImage,
-              width: 200,
-            ),
-            TextButton(
-              onPressed: rollDice,
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.only(
-                  top: 20
-                ),
-                foregroundColor: Colors.white, 
-              ),
-              child: const Text('Roll Dice'),
-            )
-          ],
-        ),
+        child: DiceRoller(),
       ),
     );
   }
